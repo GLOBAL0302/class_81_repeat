@@ -5,15 +5,6 @@ const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
 
 const linkRouter = express.Router();
 
-// linkRouter.get('/', async(req, res, next)=>{
-//     try{
-//         const links = await Link.find();
-//         res.status(200).json(links);
-//     }catch(e){
-//         next(e)
-//     }
-// });
-
 linkRouter.get('/:id', async(req, res, next)=>{
     const id = req.params.id;
     try{

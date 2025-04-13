@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ILink, IlinkWithOutShortUrl } from "../../types";
-import axios from "axios";
 import axiosApi from "../../axiosApi";
 import { setNewLink } from "./linksSlice";
 
@@ -18,9 +17,4 @@ export const submitLink = createAsyncThunk<void, IlinkWithOutShortUrl>(
     }
 );
 
-export const redirect = createAsyncThunk<void, ILink>(
-    'link/redirect',
-    async(item)=>{
-        await axiosApi.get(`/links/${item.shortUrl}`)
-    }
-)
+
