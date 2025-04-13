@@ -1,18 +1,32 @@
 import express from 'express';
 import Link from '../models/Link';
-import { log } from 'console';
+import { error, log } from 'console';
 const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
 
 const linkRouter = express.Router();
 
-linkRouter.get('/', async(req, res, next)=>{
+// linkRouter.get('/', async(req, res, next)=>{
+//     try{
+//         const links = await Link.find();
+//         res.status(200).json(links);
+//     }catch(e){
+//         next(e)
+//     }
+// });
+
+linkRouter.get('/:id', async(req, res, next)=>{
+    const id = req.params.id;
     try{
-        const links = await Link.find();
-        res.status(200).json(links);
+        const oneLink = await Link.find({shortUrl: id});
+        if(!oneLink){
+            res.status(404).send({error:"No link found"})
+        }
+        res.status(301).redirect(`${oneLink[0].originalUrl}`)
+
     }catch(e){
         next(e)
     }
-});
+})
 
 
 linkRouter.post("/", async(req, res, next)=>{
